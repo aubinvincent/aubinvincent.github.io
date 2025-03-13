@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Portfolio</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Réinitialisation */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Sections en pleine hauteur avec fond gris */
+        section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+            background-color: #d3d3d3; /* Gris clair */
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* Style des flèches */
+        .scroll-buttons {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+        }
+
+        .scroll-button {
+            width: 70px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+            color: white;
+            border: none;
+            font-size: 24px;
+            border-radius: 20px; /* Bouton plus allongé */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-button:hover {
+            background-color: #ff6600;
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let sections = document.querySelectorAll("section");
+        let currentSection = 0;
+
+        // Effet d'apparition lors du scroll
+        function fadeInOnScroll() {
+            sections.forEach(section => {
+                let sectionTop = section.getBoundingClientRect().top;
+                if (sectionTop < window.innerHeight - 100) {
+                    section.classList.add("visible");
+                }
+            });
+        }
+
+        fadeInOnScroll();
+        window.addEventListener("scroll", fadeInOnScroll);
+
+        // Défilement fluide entre les sections
+        function scrollToSection(index) {
+            currentSection = index;
+            sections[index].scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        document.getElementById('scroll-down').addEventListener('click', function () {
+            if (currentSection < sections.length - 1) {
+                currentSection++;
+                scrollToSection(currentSection);
+            }
+        });
+
+        document.getElementById('scroll-up').addEventListener('click', function () {
+            if (currentSection > 0) {
+                currentSection--;
+                scrollToSection(currentSection);
+            }
+        });
+
+        // Mettre à jour la section active quand on clique dans la nav
+        document.querySelectorAll("nav a").forEach((link, index) => {
+            link.addEventListener("click", function () {
+                scrollToSection(index);
+            });
+        });
+
+        // Suivi automatique de la section active
+        window.addEventListener("scroll", function () {
+            let currentScroll = window.scrollY;
+            sections.forEach((section, index) => {
+                let sectionTop = section.offsetTop;
+                let sectionHeight = section.clientHeight;
+                if (currentScroll >= sectionTop - sectionHeight / 2 && currentScroll < sectionTop + sectionHeight / 2) {
+                    currentSection = index;
+                }
+            });
+        });
+    });
+</script>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#identite">Mon Identité</a></li>
+                <li><a href="#projets">Projets</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- SECTION ACCUEIL -->
+    <section id="accueil">
+        <h1>Bienvenue sur mon Portfolio</h1>
+        <p>Découvrez mon travail et mon univers.</p>
+    </section>
+
+    <!-- SECTION MON IDENTITÉ -->
+    <section id="identite">
+        <h2>Mon Identité</h2>
+        <p>Développeur web passionné, j'adore créer des expériences interactives et captivantes.</p>
+    </section>
+
+    <!-- SECTION PROJETS -->
+    <section id="projets">
+        <h2>Mes Projets</h2>
+        <div class="projets-container">
+            <div class="projet-card">
+                <h3>Projet 1</h3>
+                <p>Création d'un site dynamique avec des fonctionnalités interactives.</p>
+                <a href="#">Voir le projet</a>
+            </div>
+            <div class="projet-card">
+                <h3>Projet 2</h3>
+                <p>Développement d'une application mobile moderne.</p>
+                <a href="#">Voir le projet</a>
+            </div>
+            <div class="projet-card">
+                <h3>Projet 3</h3>
+                <p>Refonte d'un site pour améliorer l'expérience utilisateur.</p>
+                <a href="#">Voir le projet</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION CONTACT -->
+    <section id="contact">
+        <h2>Me Contacter</h2>
+        <form>
+            <input type="text" placeholder="Votre nom" required>
+            <input type="email" placeholder="Votre email" required>
+            <textarea placeholder="Votre message" required></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+    </section>
+
+    <!-- Boutons de navigation -->
+    <div class="scroll-buttons">
+        <button id="scroll-up" class="scroll-button">▲</button>
+        <button id="scroll-down" class="scroll-button">▼</button>
+    </div>
+
+</body>
+</html>
