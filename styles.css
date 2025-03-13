@@ -1,0 +1,265 @@
+/* Importation d'une police moderne */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+/* Style du body */
+body {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* ----- HEADER ----- */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px 0;
+    transition: top 0.3s;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ffcc00;
+}
+
+/* ----- SECTIONS ----- */
+section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+}
+
+/* Accueil avec effet parallaxe */
+#accueil {
+    background: url('../images/background.jpg') no-repeat center center/cover;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    position: relative;
+    width: 100%;
+}
+
+#accueil::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* Animation d'apparition des sections */
+section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ----- SECTION PROJETS ----- */
+/* ----- SECTION PROJETS ----- */
+#projets {
+    background-color: #fff;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+#projets h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+#projets p {
+    font-size: 18px;
+    margin-bottom: 40px;
+    color: #666;
+}
+
+/* Conteneur des projets horizontal */
+.projets-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    overflow-x: auto;
+    padding-bottom: 20px;
+}
+
+/* Carte d'un projet */
+.projet-card {
+    background-color: #fff;
+    border: 2px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 300px; /* Fixe la largeur des cartes */
+    min-width: 280px;
+    flex-shrink: 0; /* Empêche les cartes de se rétrécir */
+}
+
+.projet-card h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.projet-card p {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.projet-card a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.projet-card a:hover {
+    color: #e6b800;
+}
+
+/* Effet au survol de la carte */
+.projet-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ----- RESPONSIVE ----- */
+@media (max-width: 768px) {
+    .projets-container {
+        gap: 10px;
+    }
+
+    .projet-card {
+        width: 250px; /* Réduit la taille des cartes sur mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .projet-card {
+        width: 200px; /* Réduit encore la taille des cartes sur petits écrans */
+    }
+}
+
+}
+
+/* ----- BOUTONS ----- */
+button {
+    background: #ffcc00;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #e6b800;
+    transform: scale(1.1);
+}
+
+/* ----- FORMULAIRE ----- */
+form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    max-width: 500px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+form input, form textarea {
+    margin: 10px 0;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border 0.3s;
+}
+
+form input:focus, form textarea:focus {
+    border-color: #ffcc00;
+    outline: none;
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+}
+
+form button {
+    background: #ffcc00;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Effet au survol */
+form button:hover {
+    background: #e6b800;
+}
+
+/* ----- RESPONSIVE ----- */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    form {
+        width: 90%;
+    }
+
+    section {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 10px 0;
+    }
+
+    nav ul {
+        gap: 20px;
+    }
+
+    section {
+        padding: 15px;
+        font-size: 14px;
+    }
+}
