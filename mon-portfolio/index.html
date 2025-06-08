@@ -1,225 +1,333 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Portfolio</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <style>
-        /* Réinitialisation */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        /* Sections en pleine hauteur avec fond gris */
-        section {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 1s ease;
-            background-color: #d3d3d3; /* Gris clair */
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Navigation */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 10px 0;
-            text-align: center;
-            z-index: 1000;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-        }
-
-        /* Style des flèches */
-        .scroll-buttons {
-            position: fixed;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-        }
-
-        .scroll-button {
-            width: 70px;
-            height: 40px;
-            background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
-            color: white;
-            border: none;
-            font-size: 24px;
-            border-radius: 20px; /* Bouton plus allongé */
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .scroll-button:hover {
-            background-color: #ff6600;
-            transform: scale(1.1);
-        }
-
-    </style>
+  <meta charset="UTF-8">
+  <title>Mon Portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 </head>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let sections = document.querySelectorAll("section");
-        let currentSection = 0;
-
-        // Effet d'apparition lors du scroll
-        function fadeInOnScroll() {
-            sections.forEach(section => {
-                let sectionTop = section.getBoundingClientRect().top;
-                if (sectionTop < window.innerHeight - 100) {
-                    section.classList.add("visible");
-                }
-            });
-        }
-
-        fadeInOnScroll();
-        window.addEventListener("scroll", fadeInOnScroll);
-
-        // Défilement fluide entre les sections
-        function scrollToSection(index) {
-            currentSection = index;
-            sections[index].scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-
-        document.getElementById('scroll-down').addEventListener('click', function () {
-            if (currentSection < sections.length - 1) {
-                currentSection++;
-                scrollToSection(currentSection);
-            }
-        });
-
-        document.getElementById('scroll-up').addEventListener('click', function () {
-            if (currentSection > 0) {
-                currentSection--;
-                scrollToSection(currentSection);
-            }
-        });
-
-        // Mettre à jour la section active quand on clique dans la nav
-        document.querySelectorAll("nav a").forEach((link, index) => {
-            link.addEventListener("click", function () {
-                scrollToSection(index);
-            });
-        });
-
-        // Suivi automatique de la section active
-        window.addEventListener("scroll", function () {
-            let currentScroll = window.scrollY;
-            sections.forEach((section, index) => {
-                let sectionTop = section.offsetTop;
-                let sectionHeight = section.clientHeight;
-                if (currentScroll >= sectionTop - sectionHeight / 2 && currentScroll < sectionTop + sectionHeight / 2) {
-                    currentSection = index;
-                }
-            });
-        });
-    });
-</script>
-
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#identite">Mon Identité</a></li>
-                <li><a href="#projets">Projets</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <!-- ===== Menu de navigation ===== -->
+  <header>
+    <nav>
+      <ul>
+	    <li><a href="#home">Accueil</a></li>
+        <li><a href="#about">À propos de moi</a></li>
+        <li><a href="#projects">Mes projets</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <!-- SECTION ACCUEIL -->
-    <section id="accueil">
-        <h1>Bienvenue sur mon Portfolio</h1>
-        <p>Découvrez mon travail et mon univers.</p>
-    </section>
+  <!-- ===== Page d'accueil ===== -->
+  <section id="home" class="home-section">
+    <div class="welcome-container">
+      <h1>Bienvenue sur mon portfolio</h1>
+      <p>Découvrez mon parcours, mes projets et mes compétences !</p>
+      <a href="#about" class="discover-button">Découvrir</a>
+    </div>
+  </section>
 
-    <!-- SECTION MON IDENTITÉ -->
-    <section id="identite">
-        <h2>Mon Identité</h2>
-        <p>Développeur web passionné, j'adore créer des expériences interactives et captivantes.</p>
-    </section>
+<!-- ===== À propos de moi ===== -->
+<section id="about">
+  <h2 data-aos="fade-down">À propos de moi</h2>
 
-    <!-- SECTION PROJETS -->
-    <section id="projets">
-        <h2>Mes Projets</h2>
-        <div class="projets-container">
-            <div class="projet-card">
-                <h3>Projet 1</h3>
-                <p>Création d'un site dynamique avec des fonctionnalités interactives.</p>
-                <a href="#">Voir le projet</a>
-            </div>
-            <div class="projet-card">
-                <h3>Projet 2</h3>
-                <p>Développement d'une application mobile moderne.</p>
-                <a href="#">Voir le projet</a>
-            </div>
-            <div class="projet-card">
-                <h3>Projet 3</h3>
-                <p>Refonte d'un site pour améliorer l'expérience utilisateur.</p>
-                <a href="#">Voir le projet</a>
-            </div>
-        </div>
-    </section>
+  <!-- Parcours scolaire -->
+  <div class="about-section" data-aos="fade-right">
+    <div class="about-card">
+      <div class="about-text">
+        <h3>Parcours scolaire</h3>
+        <p>
+          J’ai suivi mon cursus scolaire au lycée Isaac de l’Étoile à Poitiers, où j’ai choisi la voie générale avec les spécialités Mathématiques et Physique. Ce parcours m’a permis de développer un raisonnement logique et une appétence pour les sciences exactes.
+        </p>
+        <p>
+          J’ai décidé de m’orienter vers la filière BUT Science des Données à Niort, animé par la volonté de combiner l’analyse statistique, la gestion de données et l’informatique dans le monde du sport, notamment celui de haut niveau, où la data occupe une place de plus en plus importante. Au cours de ma première année, j’ai pu utiliser et approfondir mes compétences sur plusieurs outils comme RStudio, Python, Power BI, le Pack Office, VBA et MySQL, ce qui m’a permis d’acquérir une polyvalence précieuse dans la gestion et la valorisation de la donnée.
+        </p>
+      </div>
+      <div class="about-image">
+        <img src="images/image1.png" alt="Illustration parcours scolaire">
+      </div>
+    </div>
+  </div>
 
-    <!-- SECTION CONTACT -->
-    <section id="contact">
-        <h2>Me Contacter</h2>
-        <form>
-            <input type="text" placeholder="Votre nom" required>
-            <input type="email" placeholder="Votre email" required>
-            <textarea placeholder="Votre message" required></textarea>
-            <button type="submit">Envoyer</button>
-        </form>
-    </section>
+  <!-- Activités extra-scolaires -->
+  <div class="about-section" data-aos="fade-left">
+    <div class="about-card">
+      <div class="about-image">
+        <img src="images/image2.png" alt="Illustration activités extra-scolaires">
+      </div>
+      <div class="about-text">
+        <h3>Activités extra-scolaires</h3>
+        <p>
+          Depuis mon plus jeune âge, je pratique le cyclisme sur route et la course à pied, disciplines que je poursuis aujourd’hui avec régularité à raison de quatre à cinq entraînements par semaine. Ces activités me permettent de cultiver des qualités de rigueur et de persévérance, essentielles tant sur le plan personnel que professionnel.
+        </p>
+        <p>
+          Je me suis fixé comme objectif de participer au marathon de La Rochelle en novembre 2025, avec l’ambition de franchir la ligne d’arrivée sous les trois heures et quinze minutes.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Boutons de navigation -->
-    <div class="scroll-buttons">
-        <button id="scroll-up" class="scroll-button">▲</button>
-        <button id="scroll-down" class="scroll-button">▼</button>
+
+
+
+  <!-- ===== Mes projets ===== -->
+<section id="projects">
+  <h2 data-aos="fade-down">Mes projets</h2>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+
+      <!-- Slide 1 -->
+      <div class="swiper-slide">
+        <img src="images/projet1.png" alt="Projet Base de données">
+        <h3>Conception et implémentation d'une base de données</h3>
+        <button onclick="openPopup('popup1')">Voir plus</button>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="swiper-slide">
+        <img src="images/projet2.png" alt="Projet VBA">
+        <h3>Création d'un reporting EXCEL VBA</h3>
+        <button onclick="openPopup('popup2')">Voir plus</button>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="swiper-slide">
+        <img src="images/projet4.png" alt="Projet Enquête">
+        <h3>Enquête sur les étudiants et leur réussite scolaire</h3>
+        <button onclick="openPopup('popup3')">Voir plus</button>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="swiper-slide">
+        <img src="images/projet3.png" alt="Projet Concours Dataviz">
+        <h3>Concours Dataviz</h3>
+        <button onclick="openPopup('popup4')">Voir plus</button>
+      </div>
+
+      <!-- Slide 5 -->
+      <div class="swiper-slide">
+        <img src="images/projet5.png" alt="Projet Régression">
+        <h3>Régression sur des données réelles</h3>
+        <button onclick="openPopup('popup5')">Voir plus</button>
+      </div>
+
+      <!-- Slide 6 -->
+      <div class="swiper-slide">
+        <img src="images/projet6.png" alt="Projet Gestion de fichiers PYTHON">
+        <h3>Gestion de fichiers PYTHON</h3>
+        <button onclick="openPopup('popup6')">Voir plus</button>
+      </div>
+
     </div>
 
+    <!-- Flèches de navigation -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+
+
+
+
+<!-- Pop-ups -->
+<!-- Popups -->
+
+<!-- Popup 1 -->
+<div id="popup1" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup1')">&times;</span>
+    <h3>Conception et implémentation d'une base de données</h3>
+    <p>Nous avons conçu et implémenté une base de données SQL via PHP, avec insertion et gestion des données grâce à Python. Ce projet m’a permis de développer mes compétences en modélisation et manipulation de données.</p>
+    <h4>Compétences acquises :</h4>
+    <ul>
+      <li>SQL</li>
+      <li>PHP</li>
+      <li>Python</li>
+      <li>Modélisation de données</li>
+    </ul>
+    <a href="autre/codebdr.pdf" target="_blank">🔗 Voir le code</a>
+  </div>
+</div>
+
+<!-- Popup 2 -->
+<div id="popup2" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup2')">&times;</span>
+    <h3>Création d'un reporting EXCEL VBA</h3>
+    <p>Nous avons développé une application Excel VBA permettant de déterminer si un étudiant peut passer en deuxième année en fonction de ses notes. Ce projet m’a permis de maîtriser les formules Excel et de m’initier à la programmation objet.</p>
+    <h4>Compétences acquises :</h4>
+    <ul>
+      <li>Excel VBA</li>
+      <li>Programmation objet</li>
+      <li>Formules Excel</li>
+      <li>Analyse de données</li>
+    </ul>
+    <a href="autre/vba.xlsm" target="_blank">🔗 Voir l'aperçu du projet</a>
+  </div>
+</div>
+
+<!-- Popup 3 -->
+<div id="popup3" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup3')">&times;</span>
+    <h3>Enquête sur les étudiants et leur réussite scolaire</h3>
+    <p>Nous avons mené une enquête pour recueillir les ressentis des étudiants. Les données ont été analysées et synthétisées pour en tirer des conclusions pertinentes.</p>
+    <h4>Compétences acquises :</h4>
+    <ul>
+      <li>Analyse de données</li>
+      <li>Logiciel Sphinx</li>
+      <li>Synthèse des résultats</li>
+      <li>Rédaction de rapports</li>
+    </ul>
+    <a href="autre/Enquete_sportive_Aubin_Nathan_Abdelraman_GRP22.pdf" target="_blank">🔗 Voir le compte rendu</a>
+  </div>
+</div>
+
+<!-- Popup 4 -->
+<div id="popup4" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup4')">&times;</span>
+    <h3>Concours Dataviz</h3>
+    <p>Nous avons réalisé une datavisualisation sur la jeunesse en région PACA, croisant des données sur la scolarité, l’emploi et la mobilité.</p>
+    <h4>Compétences acquises :</h4>
+    <ul>
+      <li>Visualisation de données</li>
+      <li>Analyse statistique</li>
+      <li>Analyse territoriale</li>
+      <li>Travail en équipe</li>
+    </ul>
+    <a href="autre/Concours_DataViz_Ikil_Gabriel_Aubin_Theo.pdf" target="_blank">🔗 Voir le compte rendu</a>
+  </div>
+</div>
+
+<!-- Popup 5 -->
+<div id="popup5" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup5')">&times;</span>
+    <h3>Régression sur des données réelles</h3>
+    <p>Nous avons analysé des données immobilières réelles afin de développer un modèle mathématique permettant de prédire le prix de vente.</p>
+    <h4>Compétences acquises :</h4>
+    <ul>
+      <li>Programmation en R</li>
+      <li>Élaboration de modèles mathématiques</li>
+      <li>Analyse statistique</li>
+      <li>Rédaction de rapports</li>
+    </ul>
+    <a href="autre/Estimation_de_la_valeur_fonciere_des_logements_dans_les_Deux.docx" target="_blank">🔗 Voir le compte rendu</a>
+  </div>
+</div>
+
+<!-- Popup 6 -->
+<div id="popup6" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup6')">&times;</span>
+    <h3>Gestion de fichiers PYTHON</h3>
+    <p>Nous avons développé un script Python pour convertir un fichier JSON en CSV avec un format structuré et lisible sous Excel. Ce projet m’a appris à transformer et formater des données efficacement malgré un délai très court.</p>
+    <h4>Compétences acquises :</h4>
+    <ul>
+      <li>Compréhension des besoins du client</li>
+      <li>Maîtrise de la syntaxe Python</li>
+      <li>Gestion et transformation de données</li>
+      <li>Respect des formalismes et structuration</li>
+      <li>Structures algorithmiques de base</li>
+    </ul>
+    <a href="autre/codegdf.pdf" target="_blank">🔗 Voir le code</a>
+  </div>
+</div>
+
+
+</section>
+
+
+
+  <!-- ===== Contact ===== -->
+<section id="contact">
+  <h2 data-aos="fade-down">Contact</h2>
+
+  <!-- Sous-section Infos -->
+  <div class="contact-infos">
+    <h3>Mes informations</h3>
+    <p><strong>Email :</strong> <a href="mailto:aubinprov@gmail.com.com">aubinprov@gmail.com.com</a></p>
+    <p><strong>Téléphone :</strong> <a href="tel:+33638855004">06.38.85.50.04</a></p>
+    <p><a href="pdf/CV.pdf" target="_blank">📄 Télécharger mon CV</a></p>
+    <p><a href="autre/Bilan_Annuel_Aubin_Vincent.pdf" target="_blank">📄 Télécharger mon Bilan Annuel</a></p>
+  </div>
+
+  <!-- Sous-section Formulaire -->
+  <div class="contact-container">
+    <h3>Me contacter</h3>
+    <form action="https://formspree.io/f/mnqkwxyz" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="merci.html">
+
+      <div class="form-group">
+        <label for="lastname">Nom :</label>
+        <input type="text" id="lastname" name="Nom" placeholder="Votre nom" required>
+      </div>
+      <div class="form-group">
+        <label for="firstname">Prénom :</label>
+        <input type="text" id="firstname" name="Prénom" placeholder="Votre prénom" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="Email" placeholder="Votre email" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Téléphone :</label>
+        <input type="tel" id="phone" name="Téléphone" placeholder="Votre téléphone">
+      </div>
+      <div class="form-group">
+        <label for="message">Message :</label>
+        <textarea id="message" name="Message" placeholder="Votre message" required></textarea>
+      </div>
+      <button type="submit">Envoyer</button>
+    </form>
+  </div>
+</section>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1200, // durée de l'animation en ms
+      once: true // l'animation se déclenche une seule fois
+    });
+  </script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+  const swiper = new Swiper('.swiper-container', {
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    coverflowEffect: {
+      rotate: 30,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+</script>
+<script>
+  function openPopup(id) {
+    document.getElementById(id).style.display = "block";
+  }
+
+  function closePopup(id) {
+    document.getElementById(id).style.display = "none";
+  }
+</script>
+
+  <script src="js/script.js"></script>
+  
 </body>
 </html>
